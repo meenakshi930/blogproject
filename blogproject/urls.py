@@ -2,7 +2,7 @@
 URL configuration for blogproject project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/6.0/topics/http/urls/
+    https://docs.djangoproject.com/en/5.2/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -15,20 +15,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include 
+from django.urls import path, include
 from blogapp import views
 from django.conf import settings
-from django.conf.urls.static import static 
-
-
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/',include('django.contrib.auth.urls')),
-    path('signup/',views.signup,name='signup'),
-    path('create/',views.create_post, name = 'create_post' ),
-    path('post/<int:id>/',views.post_details, name= 'post_details'),
-    path('',views.home,name='home'),
+    path('accounts/', include('django.contrib.auth.urls')),  # Login/Logout
+    path('signup/', views.signup, name='signup'),
+    path('', views.home, name='home'),
+    path('create/', views.create_post, name='create_post'),
+    path('post/<int:id>/', views.post_detail, name='post_detail'),
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
